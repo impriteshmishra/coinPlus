@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import connectDB from "./utils/db";
 import userRouter  from "./routes/user.route";
+import cryptoRouter from "./routes/crypto.route";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(cors(corsOptions));
 
 // API routes
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/crypto",cryptoRouter )
 
 // starting the server
 app.listen(PORT, () => {
