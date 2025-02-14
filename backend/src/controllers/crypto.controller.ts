@@ -5,6 +5,11 @@ import redisClient from "../utils/redisClient";
 const fetchCoinData = async (coinId: string): Promise<any> => {
     const cacheKey = `coin:${coinId}`
     try {
+        // checking redis client is connected
+        if(!redisClient.isOpen){
+            console.log('redis client is not connected.');
+            
+        }
         // here i am checking for existing data
          const cachedData = await redisClient.get(cacheKey);
          if(cachedData){
@@ -12,12 +17,12 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
             return JSON.parse(cachedData);  
          }
         // here data is fetched from coingecko api
-        const response = await axios.get('https://api.coingecko.com/api/v3/coins/markets', {
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${coinId}`, {
             headers: {
-                accept: 'application/json', 
+                'Content-Type': 'application/json', 
                 'x-cg-demo-api-key': `CG-ot71bZfzvGXwC3mnSjSJ3JaV`
-            },
-            params: { vs_currency: 'inr', ids: `${coinId}` }
+            }
+            
         });
         console.log(response.data);
         const coinData = response.data;
@@ -37,6 +42,8 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
 // now using above fetchCoinData we make controller
 export const getCoinPrice = async (req: Request, res: Response): Promise<void> => {
     const { coinId } = req.params; 
+    console.log("coin id",coinId);
+    
     try {
         const data = await fetchCoinData(coinId); // here fetching the data from api and cache also 
         if(!data){

@@ -34,7 +34,7 @@ app.use(cors(corsOptions));
 
 // API routes
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/crypto",cryptoRouter )
+app.use("/api/v1/crypto",cryptoRouter);
 
 // starting the server
 app.listen(PORT, () => {

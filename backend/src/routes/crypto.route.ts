@@ -3,6 +3,6 @@ import { getCoinPrice } from "../controllers/crypto.controller";
 
 const router = express.Router();
 
-router.get("/price/:coinId", getCoinPrice);
+router.route("/price/:coinId").get((req:Request,res:Response)=>getCoinPrice(req,res));
 
 export default router;
