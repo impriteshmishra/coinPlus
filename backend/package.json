@@ -2,11 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "start": "nodemon dist/index.js",
-    "dev": "nodemon src/index.ts",
-    "build": "tsc -p ."
-  },
+ "scripts": {
+  "start": "node dist/index.js",
+  "dev": "npx nodemon --ext ts --exec npx ts-node src/index.ts",
+  "build": "npx tsc -p ./backend/tsconfig.json"
+},
   "keywords": [],
   "author": "",
   "license": "ISC",

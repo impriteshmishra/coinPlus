@@ -12,7 +12,7 @@ const app:Application = express();
 
 
 const PORT: number = parseInt(process.env.PORT || "3000", 10);
-
+console.log(process.env.PORT)
 // testing the backend
 app.get("/", (req:Request, res:Response) => {
     res.status(200).json({

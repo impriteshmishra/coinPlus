@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import { useSelector } from "react-redux";
 
 
 const Homepage = () => {
   const [coins, setCoins] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // here tracking current page
   const coinsPerPage = 16; //16 coins per page
-
+  // const {user} = useSelector(store=>store.auth);
+  // console.log("user",user);
+  
 
   useEffect(() => {
     const getAllCoin = async () => {
