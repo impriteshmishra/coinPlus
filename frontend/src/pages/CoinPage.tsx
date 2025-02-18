@@ -1,4 +1,4 @@
-import React from 'react'
+// import React from 'react'
 import Navbar from '../components/Navbar'
 import Cryptodata from '../components/Cryptodata'
 import Footer from '../components/Footer'

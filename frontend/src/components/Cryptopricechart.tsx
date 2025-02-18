@@ -1,7 +1,18 @@
-import React from "react";
+// import React from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-const CryptoPriceChart = ({ coinData }) => {
+interface CoinData {
+  name: string;
+  low_24h: number;
+  current_price: number;
+  high_24h: number;
+}
+
+interface CryptoPriceChartProps{
+  coinData: CoinData | null;
+}
+
+const CryptoPriceChart: React.FC<CryptoPriceChartProps> = ({ coinData }) => {
   if (!coinData) return <p className="text-center text-red-500">Data not available</p>;
 
   // Prepare data for the chart

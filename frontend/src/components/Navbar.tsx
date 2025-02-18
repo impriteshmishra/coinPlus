@@ -1,13 +1,32 @@
-import React, { useState } from "react";
-import { AlignJustify, Heart } from 'lucide-react';
+// import  { useState } from "react";
+// import { AlignJustify, Heart } from 'lucide-react';
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+// import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { useSelector } from "react-redux";
 import { toast } from "sonner";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../redux/authSlice";
+
+interface User {
+  id: string;
+  firstname: string;
+  lastname:string;
+  email: string;
+}
+
+interface ResponseData {
+  success: boolean;
+  message: string;
+  user: User;
+}
+
+interface RootState {
+  auth: {
+    user: User; // Define this according to the user structure
+  };
+}
 
 const Navbar = () => {
   // const wishlisthandler = () => {
@@ -17,12 +36,12 @@ const Navbar = () => {
   //   navigate('/my-profile')
   // }
   const navigate = useNavigate();
-  const {user} = useSelector(store=>store.auth);
+  const {user} = useSelector((store:RootState)=>store.auth);
   const dispatch = useDispatch();
   
   const logOutHandler = async () =>{
     try {
-      const res = await axios.get("http://localhost:3500/api/v1/user/logout",{
+      const res = await axios.get<ResponseData>("http://localhost:3500/api/v1/user/logout",{
         withCredentials:true
       });
       if(res.data.success){
@@ -30,11 +49,13 @@ const Navbar = () => {
         navigate('/');
         toast.success(res.data.message);
       }
-    } catch (error) {
-      console.log(error);
-      toast.error(error.response.data.message);
+    }  catch (error: unknown) {
+          console.log(error);
+          const errorMessage = error || 'Something went wrong';
+          toast.error(errorMessage);
+        }
     }
-  }
+
    
 
   return (
@@ -66,6 +87,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;

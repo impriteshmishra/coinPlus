@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./utils/db";
 import userRouter  from "./routes/user.route";
 import cryptoRouter from "./routes/crypto.route";
+import path from "path"
 
 dotenv.config();
 
@@ -12,14 +13,16 @@ const app:Application = express();
 
 
 const PORT: number = parseInt(process.env.PORT || "3000", 10);
-console.log(process.env.PORT)
+
+const DIRNAME = path.resolve();
+
 // testing the backend
-app.get("/", (req:Request, res:Response) => {
-    res.status(200).json({
-        message: "backend working.",
-        success: true,
-    });
-});
+// app.get("/", (req:Request, res:Response) => {
+//     res.status(200).json({
+//         message: "backend working.",
+//         success: true,
+//     });
+// });
 
 // here is middleware setup
 app.use(express.json());
@@ -35,6 +38,11 @@ app.use(cors(corsOptions));
 // API routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/crypto",cryptoRouter);
+
+app.use(express.static(path.join(DIRNAME, "/frontend/dist")));
+app.use("*",(_,res)=>{
+    res.sendFile(path.resolve(DIRNAME, "frontend", "dist", "index.html"));
+});
 
 // starting the server
 app.listen(PORT, () => {

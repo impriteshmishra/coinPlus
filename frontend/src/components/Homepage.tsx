@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 // import { useSelector } from "react-redux";
 
+interface Coin {
+  id:string;
+  name:string;
+  image:string;
+  current_price: number;
+  price_change_percentage_24h: number;
+}
 
 const Homepage = () => {
-  const [coins, setCoins] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1); // here tracking current page
+  const [coins, setCoins] = useState<Coin[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1); // here tracking current page
   const coinsPerPage = 16; //16 coins per page
   // const {user} = useSelector(store=>store.auth);
   // console.log("user",user);
@@ -16,7 +24,7 @@ const Homepage = () => {
   useEffect(() => {
     const getAllCoin = async () => {
       try {
-        const res = await axios.get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr',
+        const res = await axios.get<Coin[]>('https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr',
           {
             headers: { 'Content-Type': 'application/json' }
           }
@@ -24,6 +32,7 @@ const Homepage = () => {
         setCoins(res.data);
         console.log(res.data);
       } catch (error) {
+        toast.error(error || "Problem while fetching, try after sometimes.")
         console.log(error);
       }
     };
