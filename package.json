@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
  "scripts": {
-  "dev": "redis-server & nodemon backend/index.ts",
+  "dev": "nodemon backend/index.ts",
   "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
-  "start": "redis-server & nodemon backend/index.ts"
+  "start": "nodemon backend/index.ts"
 },
   "keywords": [],
   "author": "",
