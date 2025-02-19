@@ -41,7 +41,7 @@ const Navbar = () => {
   
   const logOutHandler = async () =>{
     try {
-      const res = await axios.get<ResponseData>("http://localhost:3500/api/v1/user/logout",{
+      const res = await axios.get<ResponseData>("https://coinplus.onrender.com/api/v1/user/logout",{
         withCredentials:true
       });
       if(res.data.success){

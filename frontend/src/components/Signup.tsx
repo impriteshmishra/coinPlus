@@ -43,7 +43,7 @@ function Signup() {
 
     try {
       setLoading(true);
-      const res = await axios.post<ApiResponse>("http://localhost:3500/api/v1/user/register", input, {
+      const res = await axios.post<ApiResponse>("https://coinplus.onrender.com/api/v1/user/register", input, {
         headers: {
           "Content-Type": "application/json"
         },

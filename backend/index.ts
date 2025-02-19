@@ -30,7 +30,7 @@ app.use(cookieParser());
 
 // configuration cors
 const corsOptions: cors.CorsOptions = {
-    origin: "http://localhost:5173",
+    origin: "https://coinplus.onrender.com",
     credentials: true,
 };
 app.use(cors(corsOptions));

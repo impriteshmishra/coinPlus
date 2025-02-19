@@ -32,7 +32,7 @@ const Cryptodata = () => {
     useEffect(() => {
         const fetchCoinDetails = async () => {
             try {
-                const res = await axios.get<ResponseData>(`http://localhost:3500/api/v1/crypto/price/${id}`);
+                const res = await axios.get<ResponseData>(`https://coinplus.onrender.com/api/v1/crypto/price/${id}`);
                 console.log("res", res.data.data[0]);
                 setCoin(res.data.data[0]);
                 setLoading(false);
