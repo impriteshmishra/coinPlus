@@ -19,8 +19,8 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
         // here data is fetched from coingecko api
             const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${coinId}`, {
             headers: {
-                'Content-Type': 'application/json', 
-                'x-cg-demo-api-key': `CG-ot71bZfzvGXwC3mnSjSJ3JaV`
+                'Content-Type': 'application/json'
+                // 'x-cg-demo-api-key': `CG-ot71bZfzvGXwC3mnSjSJ3JaV`
             }
             
         });
@@ -36,7 +36,7 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
        
     } catch (error: any) {
         console.error("error fetching coin data:", error.message);
-        throw new Error("eailed to fetch coin data.");
+        throw new Error("failed to fetch coin data.");
     }
 };
 // now using above fetchCoinData we make controller
