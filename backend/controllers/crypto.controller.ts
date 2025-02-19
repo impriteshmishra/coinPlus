@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import axios from "axios";
 import redisClient from "../utils/redisClient";
 
+
 const fetchCoinData = async (coinId: string): Promise<any> => {
     const cacheKey = `coin:${coinId}`
     try {
@@ -19,7 +20,8 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
         // here data is fetched from coingecko api
             const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${coinId}`, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
                 // 'x-cg-demo-api-key': `CG-ot71bZfzvGXwC3mnSjSJ3JaV`
             }
             
@@ -37,6 +39,8 @@ const fetchCoinData = async (coinId: string): Promise<any> => {
     } catch (error: any) {
         console.error("error fetching coin data:", error.message);
         throw new Error("failed to fetch coin data.");
+        console.error("Error fetching coin data:", error.toJSON());
+
     }
 };
 // now using above fetchCoinData we make controller
